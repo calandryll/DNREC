@@ -1,0 +1,6 @@
+alpha_diversity:metrics shannon,simpson,observed_otus,PD_whole_tree,chao1,equitability
+beta_diversity:metrics unweighted_unifrac,weighted_unifrac,bray_curtis,euclidean
+make_emperor:number_of_segments 14
+make_rarefaction_plots:resolution 600
+alpha_rarefaction:num_steps 20
+make_rarefaction_plots:generate_average_tables True

@@ -1,0 +1,3 @@
+pick_otus:enable_rev_strand_match True
+assign_taxonomy:assignment_method rdp
+assign_taxonomy:confidence 0.5
