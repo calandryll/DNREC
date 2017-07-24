@@ -48,3 +48,5 @@ multiple_rarefactions.py -i otus/otu_table_mc2_w_tax_no_pynast_failures.biom -m 
 alpha_diversity.py -i rare/ -o alpha_rare -t otus/rep_set.tre -m observed_species,chao1,PD_whole_tree
 
 McMurdie and Holmes 2014 recommend not rarefying samples.  
+This requires a different approach to the analysis.
+Divergence occurs after the split_libraries command
