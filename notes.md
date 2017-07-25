@@ -52,3 +52,10 @@ alpha_diversity.py -i rare/ -o alpha_rare -t otus/rep_set.tre -m observed_specie
 A general example of processing can be found [here](https://twbattaglia.gitbooks.io/introduction-to-qiime/content/processing_sequences_md.html)
 
 pick_open_reference_otus.py -o otus -i split/seqs.fna -o pick_otus -p 16s_pickotu_param.txt -a -O 4
+
+Running defaults for sourcetracker
+
+R --slave --vanilla --args -i rdp/rdp_otus.txt -m mapping.txt -o sourcetracker_defaults < $SOURCETRACKER_PATH/
+sourcetracker_for_qiime.r
+
+Non rarefaction or burnin
