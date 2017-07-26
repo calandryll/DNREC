@@ -72,10 +72,24 @@ It appears that R1 and R2 are in the same orientation.  Using:
 
 barcodes.fastq were copied as Sam1-55_S30_L002_IX_001.fastq
 
-For processing in dada2:
+~~For processing in dada2:~~
+
+~~split_libraries_fastq.py -i Sam1-55_S30_L002_R1_001.fastq,Sam1-55_S30_L002_R2_001.fastq -b Sam1-55_S30_L002_I1_001.fastq,Sam1-55_S30_L002_I2_001.fastq -m mapping.txt -r 999 -n 999 -q 0 -p 0.0001 -o dada2 --barcode_type hamming_8~~
+
+~~For processing in Qiime (Phred >20):
+
+split_libraries_fastq.py -i Sam1-55_S30_L002_R1_001.fastq,Sam1-55_S30_L002_R2_001.fastq -b Sam1-55_S30_L002_I1_001.fastq,Sam1-55_S30_L002_I2_001.fastq -m mapping.txt -q 19-o split --barcode_type hamming_8~~
+
+Commands for joining paired ends:
+
+cat Sam1-55_S30_L002_I1_001.fastq > barcodes.fastq
+
+cat Sam1-55_S30_L002_I2_001.fastq >> barcodes.fastq
+
+join_paired_ends.py -f Sam1-55_S30_L002_R1_001.fastq -r Sam1-55_S30_L002_R2_001.fastq -b barcodes.fastq -o joined
+
+cp joined/fastqjoin.join.fastq joined_reads.fastq
+
+cp joined/fastqjoin.join_barcodes.fastq barcodes.fastq
 
 split_libraries_fastq.py -i Sam1-55_S30_L002_R1_001.fastq,Sam1-55_S30_L002_R2_001.fastq -b Sam1-55_S30_L002_I1_001.fastq,Sam1-55_S30_L002_I2_001.fastq -m mapping.txt -r 999 -n 999 -q 0 -p 0.0001 -o dada2 --barcode_type hamming_8
-
-For processing in Qiime (Phred >20):
-
-split_libraries_fastq.py -i Sam1-55_S30_L002_R1_001.fastq,Sam1-55_S30_L002_R2_001.fastq -b Sam1-55_S30_L002_I1_001.fastq,Sam1-55_S30_L002_I2_001.fastq -m mapping.txt -q 19-o split --barcode_type hamming_8
