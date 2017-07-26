@@ -72,10 +72,6 @@ It appears that R1 and R2 are in the same orientation.  Using:
 
 barcodes.fastq were copied as Sam1-55_S30_L002_IX_001.fastq
 
-~~For processing in dada2:~~
-
-~~split_libraries_fastq.py -i Sam1-55_S30_L002_R1_001.fastq,Sam1-55_S30_L002_R2_001.fastq -b Sam1-55_S30_L002_I1_001.fastq,Sam1-55_S30_L002_I2_001.fastq -m mapping.txt -r 999 -n 999 -q 0 -p 0.0001 -o dada2 --barcode_type hamming_8~~
-
 ~~For processing in Qiime (Phred >20):~~
 
 ~~split_libraries_fastq.py -i Sam1-55_S30_L002_R1_001.fastq,Sam1-55_S30_L002_R2_001.fastq -b Sam1-55_S30_L002_I1_001.fastq,Sam1-55_S30_L002_I2_001.fastq -m mapping.txt -q 19-o split --barcode_type hamming_8~~
@@ -92,4 +88,25 @@ cp joined/fastqjoin.join.fastq joined_reads.fastq
 
 cp joined/fastqjoin.join_barcodes.fastq barcodes.fastq
 
+For processing in dada2:
+
+split_libraries_fastq.py -i joined_reads.fastq -b barcodes.fastq -m mapping.txt -r 999 -n 999 -q 0 -p 0.0001 -o dada2_joined --barcode_type hamming_8
+
+May be better to run separately for the dada2 analysis:
+
 split_libraries_fastq.py -i Sam1-55_S30_L002_R1_001.fastq,Sam1-55_S30_L002_R2_001.fastq -b Sam1-55_S30_L002_I1_001.fastq,Sam1-55_S30_L002_I2_001.fastq -m mapping.txt -r 999 -n 999 -q 0 -p 0.0001 -o dada2 --barcode_type hamming_8
+
+or each individually:
+split_libraries_fastq.py -i Sam1-55_S30_L002_RX_001.fastq -b Sam1-55_S30_L002_IX_001.fastq -m mapping.txt -r 999 -n 999 -q 0 -p 0.0001 -o dada2_rX --barcode_type hamming_8 --store_demultiplexed_fastq
+
+For processing via Qiime:
+
+split_libraries_fastq.py -i joined_reads.fastq -b barcodes.fastq -m mapping.txt -q 19 -o split --barcode_type hamming_8
+
+and
+
+split_libraries_fastq.py -i Sam1-55_S30_L002_R1_001.fastq,Sam1-55_S30_L002_R2_001.fastq -b Sam1-55_S30_L002_I1_001.fastq,Sam1-55_S30_L002_I2_001.fastq -m mapping.txt -q 19 -o split2 --barcode_type hamming_8
+
+and
+
+split_libraries_fastq.py -i barcodes/barcode_fw/reads.fastq,barcodes/barcode_rw/reads.fastq -b barcodes/barcode_fw/barcodes.fastq,barcodes/barcode_rw/barcodes.fastq -m mapping.txt -q 19 -o split3 --barcode_type hamming_8
