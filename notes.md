@@ -59,3 +59,15 @@ R --slave --vanilla --args -i rdp/rdp_otus.txt -m mapping.txt -o sourcetracker_d
 sourcetracker_for_qiime.r
 
 Non rarefaction or burnin
+
+## 07/26/2017
+
+**Reprocessing of sequences**
+
+It appears that R1 and R2 are in the same orientation.  Using:
+
+/m/s/analysis  ⎇ master …  extract_barcodes.py -f Sam1-55_S30_L002_R1_001.fastq -c barcode_single_end -l 8 -o barcode_fw
+
+/m/s/analysis  ⎇ master …  extract_barcodes.py -f Sam1-55_S30_L002_R2_001.fastq -c barcode_single_end -l 8 -o barcode_rw
+
+barcodes.fastq were copied as Sam1-55_S30_L002_IX_001.fastq
