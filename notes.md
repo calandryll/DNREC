@@ -110,3 +110,7 @@ split_libraries_fastq.py -i Sam1-55_S30_L002_R1_001.fastq,Sam1-55_S30_L002_R2_00
 and
 
 split_libraries_fastq.py -i barcodes/barcode_fw/reads.fastq,barcodes/barcode_rw/reads.fastq -b barcodes/barcode_fw/barcodes.fastq,barcodes/barcode_rw/barcodes.fastq -m mapping.txt -q 19 -o split3 --barcode_type hamming_8
+
+split_libraries_fastq.py -i Sam1-55_S30_L002_R1_001.fastq,Sam1-55_S30_L002_R2_001.fastq -b Sam1-55_S30_L002_I1_001.fastq,Sam1-55_S30_L002_I2_001.fastq -m mapping.txt -q 19 -o split_fw --barcode_type hamming_8 --store_demultiplexed_fastq
+
+split_libraries_fastq.py -i Sam1-55_S30_L002_R1_001.fastq,Sam1-55_S30_L002_R2_001.fastq -b Sam1-55_S30_L002_I1_001.fastq,Sam1-55_S30_L002_I2_001.fastq -m mapping.txt -q 19 -o split_fw --barcode_type hamming_8 --store_demultiplexed_fastq --rev_comp_barcode
