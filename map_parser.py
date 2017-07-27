@@ -10,7 +10,8 @@ parser.add_arguement('-o', help = 'FASTQ file to write results to')
 parser.add_arguement('-i', help = 'Mapping file')
 args = parser.parse_args()
 
-mfile = list(csv.reader(open(args.i, 'rU'), delimiter = '\t'))
+handle = open(args.i, 'rU')
+mfile = list(csv.reader(handle, delimiter = '\t'))
 ffile = list(SeqIO.parse(open(args.f, 'rU'), 'fastq'))
 ofile = open(args.o, 'a')
 
