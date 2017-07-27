@@ -6,4 +6,4 @@ map = 'mapping.txt'
 wfile = list(csv.reader(open(map, 'rU'), delimiter = '\t'))
 
 for records in wfile:
-	print records[1]
+	print records[0], records[1]
