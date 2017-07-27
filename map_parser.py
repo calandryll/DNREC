@@ -1,9 +1,16 @@
 # /usr/local/bin/python
 import csv
+from Bio import SeqIO
+import argparse
 
-map = 'mapping.txt'
+parser = argparse.ArgumentParser()
+parser.add_arguement('-v', '--version', action = 'version', version = '0.1')
+parser.add_arguement('-f', help = 'FASTQ file to search')
+parser.add_arguement('-o', help = 'FASTQ file to write results to')
+parser.add_arguement('-i', help = 'Mapping file')
+args = parser.parse_args()
 
-wfile = list(csv.reader(open(map, 'rU'), delimiter = '\t'))
+mfile = list(csv.reader(open(args.i, 'rU'), delimiter = '\t'))
+ffile = list(SeqIO.parse(open(args.f, 'rU'), 'fastq'))
+ofile = open(args.o, 'a')
 
-for records in wfile:
-	print records[0], records[1]
