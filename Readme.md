@@ -9,3 +9,7 @@ convert_fastaqual_fastq.py -f ../originals/fasta-qual-mapping-files/062917CM515F
 ```fish
 extract_barcodes.py -f fastq/062917CM515F-full.fastq -c barcode_single_end --bc1_len 8 -o barcodes
 ```
+**Split Libraries**
+```fish
+split_libraries_fastq.py -i barcodes/reads.fastq -b barcodes/barcodes.fastq -m mapping.txt --barcode_type 8 -o split --phred_offset 33
+```
