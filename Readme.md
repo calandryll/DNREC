@@ -13,3 +13,5 @@ extract_barcodes.py -f fastq/062917CM515F-full.fastq -c barcode_single_end --bc1
 ```fish
 split_libraries_fastq.py -i barcodes/reads.fastq -b barcodes/barcodes.fastq -m mapping.txt --barcode_type 8 -o split --phred_offset 33
 ```
+>5091731  : split/seqs.fna (Sequence lengths (mean +/- std): 289.9267 +/- 8.4051)
+>5091731  : Total
