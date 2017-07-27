@@ -1,0 +1,47 @@
+# qsub -wd $PWD upstream.sh 011216JS515F
+echo " Project Name:011216JS515F" >> commands.txt
+echo " Author : Rohan" >> commands.txt
+echo "Date: 3/4/2016" >> commands.txt
+echo >> commands.txt
+echo >> commands.txt
+validate_mapping_file.py -m $1-mapping2.txt -o corrected_mapping_file/
+echo >> commands.txt
+
+convert_fastaqual_fastq.py -f $1-full.fasta -q $1-full.qual -o fastq_convert/
+echo "validate_mapping_file.py -m "$1"-mapping2.txt -o corrected_mapping_file/" >> commands.txt
+echo >> commands.txt
+
+extract_barcodes.py -f fastq_convert/$1-full.fastq -c barcode_single_end --bc1_len 8 -o processed_seqs/
+echo "extract_barcodes.py -f fastq_convert/"$1"-full.fastq -c barcode_single_end --bc1_len 8 -o processed_seqs/" >> commands.txt
+echo >> commands.txt
+
+split_libraries_fastq.py -i processed_seqs/reads.fastq -b processed_seqs/barcodes.fastq -m corrected_mapping_file/$1-mapping2_corrected.txt --barcode_type 8 -o split_libraries_fastq_processedseqs/
+echo "split_libraries_fastq.py -i processed_seqs/reads.fastq -b processed_seqs/barcodes.fastq -m corrected_mapping_file/"$1"-mapping2_corrected.txt --barcode_type 8 -o split_libraries_fastq_processedseqs/" >> commands.txt
+echo >> commands.txt
+
+identify_chimeric_seqs.py -i split_libraries_fastq_processedseqs/seqs.fna -m usearch61 -o chimera_removed/usearch_checked_chimeras/ -r /data/rohan7293/gg_13_8_otus/rep_set/97_otus.fasta
+echo "identify_chimeric_seqs.py -i split_libraries_fastq_processedseqs/seqs.fna -m usearch61 -o chimera_removed/usearch_checked_chimeras/ -r /data/rohan7293/gg_13_8_otus/rep_set/97_otus.fasta" >> commands.txt
+echo >> commands.txt
+
+filter_fasta.py -f split_libraries_fastq_processedseqs/seqs.fna -o chimera_removed/usearch_checked_chimeras/seqs_chimeras_removed.fna -s chimera_removed/usearch_checked_chimeras/chimeras.txt -n
+echo "filter_fasta.py -f split_libraries_fastq_processedseqs/seqs.fna -o chimera_removed/usearch_checked_chimeras/seqs_chimeras_removed.fna -s chimera_removed/usearch_checked_chimeras/chimeras.txt -n" >> commands.txt
+echo >> commands.txt
+
+pick_open_reference_otus.py -i chimera_removed/usearch_checked_chimeras/seqs_chimeras_removed.fna -r /data/rohan7293/gg_13_8_otus/rep_set/97_otus.fasta -o open_reference_otus/
+echo "pick_open_reference_otus.py -a -O 16 -i chimera_removed/usearch_checked_chimeras/seqs_chimeras_removed.fna -r /data/rohan7293/gg_13_8_otus/rep_set/97_otus.fasta -o open_reference_otus/" >> commands.txt
+echo >> commands.txt
+
+biom summarize-table -i open_reference_otus/otu_table_mc2_w_tax.biom -o open_reference_otus/summary_open_ref.txt
+echo "biom summarize-table -i open_reference_otus/otu_table_mc2_w_tax.biom -o open_reference_otus/summary_open_ref.txt" >> commands.txt
+echo >> commands.txt
+
+head -15 open_reference_otus/summary_open_ref.txt >> commands.txt
+
+filter_otus_from_otu_table.py -i  open_reference_otus/otu_table_mc2_w_tax.biom -o closed_reference_otus/closed_otu_table.biom --negate_ids_to_exclude –e /data/rohan7293/gg_13_8_otus/rep_set/97_otus.fasta
+echo "filter_otus_from_otu_table.py -i  open_reference_otus/otu_table_mc2_w_tax.biom -o closed_reference_otus/closed_otu_table.biom --negate_ids_to_exclude –e /data/rohan7293/gg_13_8_otus/rep_set/97_otus.fasta" >> commands.txt
+echo >> commands.txt
+
+biom summarize-table -i closed_reference_otus/closed_otu_table.biom -o closed_reference_otus/summary_closed_ref.txt
+echo "biom summarize-table -i closed_reference_otus/closed_otu_table.biom -o closed_reference_otus/summary_closed_ref.txt" >> commands.txt
+echo >> commands.txt
+
