@@ -19,3 +19,11 @@ split_libraries_fastq.py -i barcodes/reads.fastq -b barcodes/barcodes.fastq -m m
 ```fish
 pick_open_reference_otus.py -i split/seqs.fna -o otus
 ```
+**Convert biom to table for Sourcetracker**
+```fish
+biom convert -i otus/otu_table_mc2_w_tax_no_pynast_failures.biom -o nonfiltered.txt --to-tsv
+```
+**Run Sourcetracker**
+``fish
+R --slave --vanilla --args -i nonfiltered.txt -m mapping.txt -o sourcetracker -r 30000 --train_rarefaction 30000 < $SOURCETRACKER_PATH/sourcetracker_for_qiime.r
+```
