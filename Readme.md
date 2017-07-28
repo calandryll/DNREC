@@ -24,6 +24,6 @@ pick_open_reference_otus.py -i split/seqs.fna -o otus
 biom convert -i otus/otu_table_mc2_w_tax_no_pynast_failures.biom -o nonfiltered.txt --to-tsv
 ```
 **Run Sourcetracker**
-``fish
+```fish
 R --slave --vanilla --args -i nonfiltered.txt -m mapping.txt -o sourcetracker -r 30000 --train_rarefaction 30000 < $SOURCETRACKER_PATH/sourcetracker_for_qiime.r
 ```
