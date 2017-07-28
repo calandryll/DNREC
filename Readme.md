@@ -25,5 +25,5 @@ biom convert -i otus/otu_table_mc2_w_tax_no_pynast_failures.biom -o nonfiltered.
 ```
 **Run Sourcetracker**
 ```fish
-R --slave --vanilla --args -i nonfiltered.txt -m mapping.txt -o sourcetracker -r 30000 --train_rarefaction 30000 < $SOURCETRACKER_PATH/sourcetracker_for_qiime.r
+R --slave --vanilla --args -i nonfiltered.txt -m mapping.txt -o sourcetracker < $SOURCETRACKER_PATH/sourcetracker_for_qiime.r
 ```
