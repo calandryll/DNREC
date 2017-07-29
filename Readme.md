@@ -12,13 +12,18 @@ extract_barcodes.py -f full/fastq/barcodes_1/reads.fastq -o full/barcodes_2 -l 2
 ```
 **Split Libraries**
 ```fish
-split_libraries_fastq.py -i barcodes_2/reads.fastq -b barcodes_1/barcodes.fastq -m mapping.txt --barcode_type 8 -o split --phred_offset 33
+split_libraries_fastq.py -i full/barcodes_2/reads.fastq -b full/barcodes_1/barcodes.fastq -m mapping.txt --barcode_type 8 -o split --phred_offset 33
 ```
 >5091731  : split/seqs.fna (Sequence lengths (mean +/- std): 289.9267 +/- 8.4051)
 
+**Identify Chimeras**
+```fish
+identify_chimeric_seqs.py -i full/split/seqs.fna -m usearch61 -o full/chimera -r /usr/local/lib/python2.7/dist-packages/qiime_default_reference/gg_13_8_otus/rep_set/97_otus.fasta
+```
+
 **Pick OTUs**
 ```fish
-pick_open_reference_otus.py -i split/seqs.fna -o otus
+pick_open_reference_otus.py -i split/seqs.fna -o otus -a -O 4
 ```
 **Convert biom to table for Sourcetracker**
 ```fish
