@@ -23,15 +23,19 @@ identify_chimeric_seqs.py -i full/split/seqs.fna -m usearch61 -o full/chimera -r
 
 **Pick OTUs**
 ```fish
-pick_open_reference_otus.py -i split/seqs.fna -o otus -a -O 4
+pick_open_reference_otus.py -i full/split/seqs.fna -o full/otus -a -O 4
 ```
 **Convert biom to table for Sourcetracker**
 ```fish
-biom convert -i otus/otu_table_mc2_w_tax_no_pynast_failures.biom -o nonfiltered.txt --to-tsv
+biom convert -i full/otus/otu_table_mc2_w_tax_no_pynast_failures.biom -o full/nonfiltered.txt --to-tsv
+```
+**Diversity Analysis**
+```fish
+core_diversity_analyses.py -i full/otus/otu_table_mc2_w_tax_no_pynast_failures.biom -o full/diversity -m mapping.txt -e 31507 -a -O 4 -t full/otus/rep_set.tre -c Site --recover_from_failure
 ```
 **Run Sourcetracker**
 ```fish
-R --slave --vanilla --args -i nonfiltered.txt -m mapping.txt -o sourcetracker < $SOURCETRACKER_PATH/sourcetracker_for_qiime.r
+R --slave --vanilla --args -i nonfiltered.txt -m mapping.txt -o full/sourcetracker < $SOURCETRACKER_PATH/sourcetracker_for_qiime.r
 ```
 
 ## Analysis for the DADA2 pipeline
