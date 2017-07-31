@@ -40,12 +40,15 @@ R --slave --vanilla --args -i full/nonfiltered.txt -m mapping.txt -o full/source
 
 ## Analysis for the DADA2 pipeline
 ```fish
-extract_barcodes.py -f Sam1-55_S30_L002_R1_001.fastq -c barcode_single_end -l 8 -o barcode_fw -a -m mapping.txt 
+extract_barcodes.py -f Sam1-55_S30_L002_R1_001.fastq -c barcode_single_end -l 8 -o barcode_fw -a -m mapping.txt
 extract_barcodes.py -f barcode_fw/reads.fastq -c barcode_single_end -l 20 -o barcode_fw2
 mv barcode_fw2/reads.fastq barcode_fw2/cleaned_R1.fastq
 extract_barcodes.py -f Sam1-55_S30_L002_R2_001.fastq -c barcode_single_end -l 8 -o barcode_rw -a -m mapping.txt
 extract_barcodes.py -f barcode_rw/reads.fastq -c barcode_single_end -l 20 -o barcode_rw2
 mv barcode_rw2/reads.fastq barcode_rw2/cleaned_R2.fastq
-split_libraries_fastq.py -i barcode_fw2/cleaned_R1.fastq -b barcode_fw/barcodes.fastq -m mapping.txt --barcode_type hamming_8 -o split_fw -r 999 -n 999 -q 0 -p 0.0001
-split_libraries_fastq.py -i barcode_rw2/cleaned_R2.fastq -b barcode_rw/barcodes.fastq -m mapping.txt --barcode_type hamming_8 -o split_rw -r 999 -n 999 -q 0 -p 0.0001
+cat barcode_fw/barcodes.fastq barcode_rw/barcodes.fastq > combined_barcodes.fastq
+join_paired_ends.py -f barcode_fw2/cleaned_R1.fastq -r barcode_rw2/cleaned_R2.fastq -b combined_barcodes.fastq -o stripped_joined
+mv stripped_joined/fastqjoin.join.fastq stripped_joined/stripped_seqs.fastq
+mv stripped_joined/fastqjoin.join_barcodes.fastq stripped_joined/stripped_barcords.fastq
+split_libraries_fastq.py -i stripped_joined/stripped_seqs.fastq -b stripped_joined/stripped_barcords.fastq -m mapping.txt -r 999 -n 999 -q 0 -p 0.0001 --barcode_type 8 -o joined_split
 ```
