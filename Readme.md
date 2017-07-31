@@ -35,7 +35,7 @@ core_diversity_analyses.py -i full/otus/otu_table_mc2_w_tax_no_pynast_failures.b
 ```
 **Run Sourcetracker**
 ```fish
-R --slave --vanilla --args -i nonfiltered.txt -m mapping.txt -o full/sourcetracker < $SOURCETRACKER_PATH/sourcetracker_for_qiime.r
+R --slave --vanilla --args -i full/nonfiltered.txt -m mapping.txt -o full/sourcetracker -r 30000 --train_rarefaction 30000 < $SOURCETRACKER_PATH/sourcetracker_for_qiime.r
 ```
 
 ## Analysis for the DADA2 pipeline
