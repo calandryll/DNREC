@@ -30,8 +30,4 @@ def sequence_cleaner(fasta_file):
 
 userParameters = sys.argv[1:]
 
-try:
-    if len(userParameters) == 1:
-        sequence_cleaner(userParameters[0])
-    else:
-        print("There is a problem!")
+sequence_cleaner(userParameters[0])
