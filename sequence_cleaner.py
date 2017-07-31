@@ -10,12 +10,7 @@ def sequence_cleaner(fasta_file):
         # Take the current sequence
         sequence = str(seq_record.seq).upper()
         if sequence not in sequences:
-            sequences[sequence] = seq_record.id
-       # If it is already in the hash table, we're just gonna concatenate the ID
-       # of the current sequence to another one that is already in the hash table
-        else:
-            sequences[sequence] += "_" + seq_record.id
-
+            sequences[sequence] = seq_record.seq
 
     # Write the clean sequences
 
