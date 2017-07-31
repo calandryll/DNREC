@@ -6,7 +6,7 @@ def sequence_cleaner(fasta_file, min_length=0, por_n=100):
     sequences={}
 
     # Using the Biopython fasta parse we can read our fasta input
-    for seq_record in SeqIO.parse(fasta_file, "fasta"):
+    for seq_record in SeqIO.parse(fasta_file, "fastq"):
         # Take the current sequence
         sequence = str(seq_record.seq).upper()
         # Check if the current sequence is according to the user parameters
