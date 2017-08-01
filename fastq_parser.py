@@ -15,11 +15,12 @@ ofile = open(args.o, 'w')
 handle = list(mfile)
 
 for i in range(len(handle)):
-	print('Processing %s' % handle[i])
+	print('Processing')
 	p1 = subprocess.Popen(['grep', handle[i], ffile], stdout = subprocess.PIPE)
 	p2 = subprocess.Popen(['wc', '-l'], stdin = p1.stdout, stdout = subprocess.PIPE)
 	p1.stdout.close()
 	output = p2.communicate()[0]
-	ofile.write('%s\n' % (output))
+	if output > 0:
+		ofile.write('%s\t%s\n' % (handle[i], output))
 
 ofile.close()
