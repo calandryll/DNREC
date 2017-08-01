@@ -1,17 +1,23 @@
-# /usr/local/bin/python
-import csv
+#!/usr/bin/env python3
+
+import csv, argparse
 from Bio import SeqIO
-import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_arguement('-v', '--version', action = 'version', version = '0.1')
-parser.add_arguement('-f', help = 'FASTQ file to search')
-parser.add_arguement('-o', help = 'FASTQ file to write results to')
-parser.add_arguement('-i', help = 'Mapping file')
+parser.add_argument('-v', '--version', action = 'version', version = '0.1')
+parser.add_argument('-f', help = 'FASTQ file to search')
+parser.add_argument('-o', help = 'FASTQ file to write results to')
+parser.add_argument('-i', help = 'Mapping file')
 args = parser.parse_args()
 
 handle = open(args.i, 'rU')
-mfile = list(csv.reader(handle, delimiter = '\t'))
-ffile = list(SeqIO.parse(open(args.f, 'rU'), 'fastq'))
-ofile = open(args.o, 'a')
+handle2 = open(args.f, 'rU')
+mfile = csv.reader(handle, delimiter = '\n')
+ffile = list(SeqIO.parse(handle2, 'fastq'))
+ofile = open(args.o, 'w')
 
+print('Loading %s to memory...' % (args.f))
+records = (r for r in ffile if r.id in mfile)
+count = SeqIO.write(records, ofile, "fastq")
+
+print('Saved %i of %s' % (count, len(list(ffile))))
