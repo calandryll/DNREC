@@ -16,7 +16,7 @@ input_file = args.f
 output_file = args.o
 
 wanted = set(line.rstrip("\n").split(None,1)[0] for line in open(id_file))
-print "Found %i unique identifiers in %s" % (len(wanted), id_file)
+print("Found %i unique identifiers in %s" % (len(wanted), id_file))
 
 count = 0
 handle = open(output_file, "w")
@@ -26,6 +26,6 @@ for title, seq, qual in FastqGeneralIterator(open(input_file)) :
         count += 1
 handle.close()
 
-print "Saved %i records from %s to %s" % (count, input_file, output_file)
+print("Saved %i records from %s to %s" % (count, input_file, output_file))
 if count < len(wanted):
-    print "Warning %i IDs not found in %s" % (len(wanted)-count, input_file)
+    print("Warning %i IDs not found in %s" % (len(wanted)-count, input_file))
