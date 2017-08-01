@@ -2,6 +2,7 @@
 
 import csv, argparse
 from Bio import SeqIO
+from Bio.SeqIO.QualityIO import FastqGeneralIterator
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-v', '--version', action = 'version', version = '0.1')
