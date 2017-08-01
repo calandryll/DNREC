@@ -11,7 +11,7 @@ args = parser.parse_args()
 
 mfile = set(line.rstrip('\n').split(None,1)[0] for line in open(args.i))
 ffile = args.f
-ofile = args.o
+ofile = open(args.o, 'w')
 handle = list(mfile)
 
 for i in range(len(handle)):
