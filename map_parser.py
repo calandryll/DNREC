@@ -11,14 +11,21 @@ parser.add_argument('-i', help = 'Mapping file')
 args = parser.parse_args()
 
 print('Loading %s to memory...' % (args.f))
-handle = open(args.i, 'rU')
-handle2 = open(args.f, 'rU')
-mfile = csv.reader(handle, delimiter = '\n')
-ffile = list(SeqIO.parse(handle2, 'fastq'))
-ofile = open(args.o, 'w')
+id_file = args.i
+input_file = args.f
+output_file = args.o
 
-records = (r for r in ffile if r.id in mfile)
-print(records)
-#count = SeqIO.write(records, ofile, "fastq")
+wanted = set(line.rstrip("\n").split(None,1)[0] for line in open(id_file))
+print "Found %i unique identifiers in %s" % (len(wanted), id_file)
 
-#print('Saved %i of %s' % (count, ffile))
+count = 0
+handle = open(output_file, "w")
+for title, seq, qual in FastqGeneralIterator(open(input_file)) :
+    if title.split(None,1)[0] in wanted:
+        handle.write("@%s\n%s\n+\n%s\n" % (title, seq, qual))
+        count += 1
+handle.close()
+
+print "Saved %i records from %s to %s" % (count, input_file, output_file)
+if count < len(wanted):
+    print "Warning %i IDs not found in %s" % (len(wanted)-count, input_file)
