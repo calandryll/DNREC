@@ -10,14 +10,14 @@ parser.add_argument('-o', help = 'FASTQ file to write results to')
 parser.add_argument('-i', help = 'Mapping file')
 args = parser.parse_args()
 
+print('Loading %s to memory...' % (args.f))
 handle = open(args.i, 'rU')
 handle2 = open(args.f, 'rU')
 mfile = csv.reader(handle, delimiter = '\n')
 ffile = list(SeqIO.parse(handle2, 'fastq'))
 ofile = open(args.o, 'w')
 
-print('Loading %s to memory...' % (args.f))
 records = (r for r in ffile if r.id in mfile)
 count = SeqIO.write(records, ofile, "fastq")
 
-print('Saved %i of %s' % (count, len(list(ffile))))
+print('Saved %i of %s' % (count, ffile))
