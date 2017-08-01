@@ -20,6 +20,6 @@ for i in range(len(handle)):
 	p2 = subprocess.Popen(['wc', '-l'], stdin = p1.stdout, stdout = subprocess.PIPE)
 	p1.stdout.close()
 	output = p2.communicate()[0]
-	ofile.write('%s\n' % (output[i]))
+	ofile.write('%s\n' % (output))
 
 ofile.close()
