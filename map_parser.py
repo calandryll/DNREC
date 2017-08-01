@@ -18,6 +18,7 @@ ffile = list(SeqIO.parse(handle2, 'fastq'))
 ofile = open(args.o, 'w')
 
 records = (r for r in ffile if r.id in mfile)
-count = SeqIO.write(records, ofile, "fastq")
+print(records)
+#count = SeqIO.write(records, ofile, "fastq")
 
-print('Saved %i of %s' % (count, ffile))
+#print('Saved %i of %s' % (count, ffile))
