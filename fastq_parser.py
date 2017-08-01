@@ -19,7 +19,7 @@ for i in range(len(handle)):
 	p1 = subprocess.Popen(['grep', handle[i], ffile], stdout = subprocess.PIPE)
 	p2 = subprocess.Popen(['wc', '-l'], stdin = p1.stdout, stdout = subprocess.PIPE)
 	p1.stdout.close()
-	output = str(p2.communicate()[0])
+	output = p2.communicate()[0]
 	ofile.write('%s\n' % (output[i]))
 
 ofile.close()
