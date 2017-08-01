@@ -6,13 +6,13 @@ from Bio.Seq import Seq
 parser = argparse.ArgumentParser()
 parser.add_argument('-f', help = 'FASTQ file to search')
 parser.add_argument('-i', help = 'Mapping file')
-#parser.add_argument('-o', help = 'Output Text file')
+parser.add_argument('-o', help = 'Output Text file')
 args = parser.parse_args()
 
 handle = open(args.i, 'rU')
 mfile = list(csv.reader(handle, delimiter = '\t'))
 ffile = args.f
-#ofile = open(args.o, 'a')
+odir = args.o
 
 for i in range(len(mfile)):
 	if i == 0:
@@ -24,11 +24,11 @@ for i in range(len(mfile)):
 		p2 = subprocess.Popen(['grep', '@D00420'], stdin = p1.stdout, stdout = subprocess.PIPE)
 		p1.stdout.close()
 		output = str(p2.communicate()[0]).split('\\n')
-		#rc = mfile[i][1].reverse_complement()
-		#print(rc)
-		#p1 = 
-		outfile = mfile[i][0] + '.txt'
-		ofile = open(outfile, 'a')
+		if not os.path.exists(odir):
+			os.mkdir(odir)
+		
+		outfile = odir + '/' + mfile[i][0] + '.txt'
+		ofile = open(outfile, 'w')
 		for l in range(len(output)):
 			ofile.write('%s\n' % (output[l]))
 
