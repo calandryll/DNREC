@@ -12,10 +12,11 @@ args = parser.parse_args()
 mfile = set(line.rstrip('\n').split(None,1)[0] for line in open(args.i))
 ffile = args.f
 ofile = args.o
+handle = list(mfile)
 
-for i in range(len(mfile)):
-	print('Processing %s' % mfile[i])
-	p1 = subprocess.Popen(['grep', mfile[i], ffile], stdout = subprocess.PIPE)
+for i in range(len(handle)):
+	print('Processing %s' % handle[i])
+	p1 = subprocess.Popen(['grep', handle[i], ffile], stdout = subprocess.PIPE)
 	p2 = subprocess.Popen(['wc', '-l'], stdin = p1.stdout, stdout = subprocess.PIPE)
 	p1.stdout.close()
 	output = str(p2.communicate()[0])
