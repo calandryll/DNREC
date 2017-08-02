@@ -126,3 +126,4 @@ sta-qual-mapping-files/062917CM515F-full.qual -o fastq
 sourcetracker2 gibbs -i full/nonfiltered.txt -m short_mapping.txt -o full/sourcetracker2 --jobs 4 --source_rarefaction_depth 30000 --sink_rarefaction_depth 30000
 sourcetracker2 gibbs -i full/nonfiltered.txt -m short_mapping.txt -o full/sourcetracker3 --jobs 4
 sourcetracker2 gibbs -i full/nonfiltered.txt -m short_mapping.txt -o full/sourcetracker4 --jobs 4 --source_rarefaction_depth 0 --sink_rarefaction_depth 0
+R --slave --vanilla --args -i full/nonfiltered.txt -m short_mapping.txt -o full/sourcetracker5 < $SOURCETRACKER_PATH/sourcetracker_for_qiime.r
