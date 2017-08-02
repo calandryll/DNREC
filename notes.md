@@ -127,3 +127,4 @@ sourcetracker2 gibbs -i full/nonfiltered.txt -m short_mapping.txt -o full/source
 sourcetracker2 gibbs -i full/nonfiltered.txt -m short_mapping.txt -o full/sourcetracker3 --jobs 4
 sourcetracker2 gibbs -i full/nonfiltered.txt -m short_mapping.txt -o full/sourcetracker4 --jobs 4 --source_rarefaction_depth 0 --sink_rarefaction_depth 0
 R --slave --vanilla --args -i full/nonfiltered.txt -m short_mapping.txt -o full/sourcetracker5 < $SOURCETRACKER_PATH/sourcetracker_for_qiime.r
+R --slave --vanilla --args -i full/nonfiltered.txt -m short_mapping.txt -r 0 --train_rarefaction 0 -o full/sourcetracker6 < $SOURCETRACKER_PATH/sourcetracker_for_qiime.r
