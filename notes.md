@@ -121,3 +121,6 @@ extract_barcodes.py -f reverse_reads.fastq -l 8 -c barcode_single_end -o barcode
 
 convert_fastaqual_fastq.py -f ../originals/fasta-qual-mapping-files/062917CM515F-full.fasta -q ../originals/fa
 sta-qual-mapping-files/062917CM515F-full.qual -o fastq
+
+## 08/02/2017
+sourcetracker2 gibbs -i full/nonfiltered.txt -m short_mapping.txt -o full/sourcetracker2 --jobs 4 --source_rarefaction_depth 30000 --sink_rarefaction_depth 30000
