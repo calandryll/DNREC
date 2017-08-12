@@ -131,3 +131,5 @@ R --slave --vanilla --args -i full/nonfiltered.txt -m short_mapping.txt --tune_a
 
 ## 08/07/2017
 R --slave --vanilla --args -i full/nonfiltered.txt -m mapping.txt --tune_alphas 25 -o full/sourcetracker7 < $SOURCETRACKER_PATH/sourcetracker_for_qiime.r
+
+R --slave --vanilla --args -i nonfiltered.txt -m mapping.txt -o sourcetracker --alpha1 0.001 --alpha2 0.001 < $SOURCETRACKER_PATH/sourcetracker_for_qiime.r
